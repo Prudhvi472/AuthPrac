@@ -28,7 +28,7 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
 
             if (response.data.success) {
-                setAuth({ user: username, password });
+                setAuth({ user: username, password});
                 setUsername('');
                 setPassword('');
                 navigate('/');

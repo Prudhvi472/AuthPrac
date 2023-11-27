@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
-import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email,setEmail] = useState('')
     const userRef = useRef();
-    const {setAuth} = useAuth()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -29,11 +27,10 @@ const Register = () => {
             });
             console.log(JSON.stringify(response?.data));
             if (response.data.success) {
-                setAuth({user:username,password})
                 setUsername('');
                 setPassword('');
                 setEmail('')
-                navigate('/');
+                navigate('/login');
             } else {
                 console.log('Login failed:', response.data.message);
             }
