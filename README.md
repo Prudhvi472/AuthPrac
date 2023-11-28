@@ -27,7 +27,7 @@ Explain the authentication flow used in your application, focusing on the JWT as
 
 4. **Authenticated Requests:** Subsequent requests from the client include the JWT token in the headers for authentication.
 
-## JWT Implementation (Pending)
+## JWT Implementation
 
 JWT authentication is pending and will be implemented in a future update. This will enhance security and enable additional features.
 
