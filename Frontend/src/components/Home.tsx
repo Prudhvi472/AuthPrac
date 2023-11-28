@@ -38,7 +38,6 @@ const Home: React.FC = () => {
       <ul>
         {users.map(user => (
           <li key={user._id}>{user.user}</li>
-          // Adjust the property names based on your actual user data structure
         ))}
       </ul>
     </div>

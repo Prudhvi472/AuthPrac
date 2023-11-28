@@ -1,18 +1,45 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email,setEmail] = useState('')
-    const userRef = useRef();
+    const {setAuth} = useAuth()
+    const userRef = useRef<HTMLInputElement>(null);
+
     const navigate = useNavigate()
 
     useEffect(() => {
-        //@ts-ignore
-        userRef.current.focus();
-    }, []);
+        userRef.current?.focus()
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/protected', {
+              withCredentials: true,
+            });
+    
+            if (response.data.success) {
+              // Assuming you have a username available
+              const username = response.data.user;
+    
+              // Perform actions based on successful authentication
+              // For example, update state, clear form fields, and navigate to another page
+              setAuth({ user: username });
+              setUsername('');
+              setPassword('');
+              navigate('/');
+            }
+    
+          } catch (error) {
+            // Handle errors, e.g., log them or show a message to the user
+            console.error("Error fetching data:", error);
+          }
+        };
+    
+        fetchData();
+      }, [navigate]);
 
     const handleSubmit = async () => {
         console.log(username);
@@ -37,7 +64,6 @@ const Register = () => {
         }
         catch(error)
         {
-            navigate('/home')
             console.log(error);
         }
     };
@@ -66,7 +92,6 @@ const Register = () => {
                         type="text"
                         name="username"
                         id="username"
-                        //@ts-ignore
                         ref={userRef}
                         placeholder='Enter username'
                         required

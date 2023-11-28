@@ -2,7 +2,6 @@ import {ReactNode, createContext , useContext, useState } from "react";
 
 interface AuthState {
     user: string;
-    password: string;
   }
   
   interface AuthContextValue {
@@ -17,7 +16,6 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export const AuthProvider = ({children} : { children: ReactNode }) =>{
     const [auth,setAuth] = useState<AuthState>({
         user : '',
-        password : '',
     })
     return (
         <AuthContext.Provider value={{auth , setAuth}}>
